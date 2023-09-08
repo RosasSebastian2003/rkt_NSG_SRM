@@ -159,8 +159,8 @@
     )
 
     (define (cos-sum x k)
-        (if (= 0 k n) 0 (+ (cos-k x k) (cos-sum x (+ k 1))))
-    )
+        (if (= k n) 0 (+ (cos-k x k) (cos-sum x (+ k 1))))
+    )   
 
     (cos-sum x 0)
 )
