@@ -120,3 +120,60 @@
 (displayln "ej. 3, dddf 5")
 (displayln (dddf 5))
 (newline)
+
+;;Problema 5, Newton
+(define (newton f n)
+    (define (newton-iter x k)
+        (if (= k 0) x (newton-iter (- x (/ (f x) ((deriv f 0.0001) x))) (- k 1)))
+    )
+    
+    (newton-iter 0 n)
+)
+
+(displayln "Problema 5, Newton")
+(displayln "ej. 1, lambda (x) (- x 10)) 1")
+(displayln (newton (lambda (x) (- x 10)) 1))
+(newline)
+
+(displayln "ej. 2, (lambda (x) (+ (* 4 x) 2)) 1")
+(displayln (newton (lambda (x) (+ (* 4 x) 2)) 1))
+(newline)
+
+(displayln "ej. 3, (lambda (x) (+ (* x x x) 1)) 50")
+(displayln (newton (lambda (x) (+ (* x x x) 1)) 50))
+(newline)
+
+(displayln "ej. 4, (lambda (x) (+ (cos x) (* 0.5 x))) 5")
+(displayln (newton (lambda (x) (+ (cos x) (* 0.5 x))) 5))
+(newline)
+
+;;Problema 6, Coseno
+(define (coseno x n)
+    (define (fact k)
+        (if (= k 0) 1 (* k (fact (- k 1))))
+    )
+
+    (define (cos-k x k)
+        (let ((sign (if (even? k) 1 -1)) (numerator (expt x (* 2 k)))
+        (denominator (fact (* 2 k)))) (* sign (/ numerator denominator)))
+    )
+
+    (define (cos-sum x k)
+        (if (= 0 k n) 0 (+ (cos-k x k) (cos-sum x (+ k 1))))
+    )
+
+    (cos-sum x 0)
+)
+
+(displayln "Problema 6, Newton")
+(displayln "ej. 1, coseno 0.523598776 5")
+(displayln (coseno 0.523598776 5))
+(newline)
+
+(displayln "ej. 2,coseno 0.78539816310 7")
+(displayln (coseno 0.78539816310 7))
+(newline)
+
+(displayln "ej. 3, coseno 10.0 18")
+(displayln (coseno 10.0 18))
+(newline)
