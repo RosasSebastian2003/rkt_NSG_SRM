@@ -37,8 +37,7 @@
         (cond 
             ((null? lst) '())
             ((equal? (car lst) prev) (encode-aux (cdr lst) prev (+ count 1)))
-            (else
-                (cons prev (cons count (encode-aux (cdr lst) (car lst) 1)))
+            (else (cons prev (cons count (encode-aux (cdr lst) (car lst) 1)))
             )
         )
     )
@@ -61,4 +60,37 @@
 
 (displayln "ej. 4, '(9 9 9 9 7 7))")
 (displayln (encode '(9 9 9 9 7 7)))
+(newline)
+
+;;Problema 3, busqueda lineal
+(define (linear-search lst x eq-fun)
+    (define (linear-search-aux lst x eq-fun indx)
+        (cond
+            ((null? lst) '())
+            ((eq-fun (car lst) x)
+            (cons indx (linear-search-aux (cdr lst) x eq-fun (+ indx 1)))
+            )
+            (else (linear-search-aux (cdr lst) x eq-fun (+ indx 1))
+            )
+        )
+    )
+
+    (linear-search-aux lst x eq-fun 0)
+)
+
+(displayln "Problema 3, Busqueda lineal")
+(displayln "ej. 1, '() 5 =")
+(displayln (linear-search '() 5 =))
+(newline)
+
+(displayln "ej. 2, '(48 77 30 31 5 20 91 92 69 5 97 28 32 17 18 5 96) 5 =")
+(displayln (linear-search '(48 77 30 31 5 20 91 92 69 5 97 28 32 17 18 5 96) 5 =))
+(newline)
+
+(displayln "ej. 3, '(\"red\" \"blue\" \"green\" \"black\" \"white\" \"red\") \"red\" string=?")
+(displayln (linear-search '("red" "blue" "green" "black" "white" "red") "red" string=?))
+(newline)
+
+(displayln "ej. 4, '(a b c d e f g h) 'h equal?")
+(displayln (linear-search '(a b c d e f g h) 'h equal?))
 (newline)
