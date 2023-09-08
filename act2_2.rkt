@@ -94,3 +94,29 @@
 (displayln "ej. 4, '(a b c d e f g h) 'h equal?")
 (displayln (linear-search '(a b c d e f g h) 'h equal?))
 (newline)
+
+;;Problema 4, deriv
+(define (deriv f h)
+    (lambda (x)
+        (/ (- (f (+ x h)) (f x)) h)
+    )
+)
+
+(define f (lambda (x) (* x x x)))
+
+(define df (deriv f 0.001))
+(define ddf (deriv df 0.001))
+(define dddf (deriv ddf 0.001))
+
+(displayln "Problema 4, Derivar")
+(displayln "ej. 1, df 5")
+(displayln (df 5))
+(newline)
+
+(displayln "ej. 2, ddf 5")
+(displayln (ddf 5))
+(newline)
+
+(displayln "ej. 3, dddf 5")
+(displayln (dddf 5))
+(newline)
