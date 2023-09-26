@@ -24,7 +24,7 @@
 )
  
 ;;Tabla de estados - Igualdad
-(define dfa-igualdad
+(define dfa-asig
 (list 
 (list
 (list -1 1 -1 -1 -1 -1 -1 -1 -1 -1 -1 1 1 1 1 -1 -1)
@@ -57,7 +57,7 @@
 )
 
 ;;Tabla de estados - Division
-(define dfa-div
+(define dfa-divi
 (list 
 (list 
 (list -1 -1 -1 -1 1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1)
@@ -69,7 +69,7 @@
 
 
 ;;Tabla de estados - Potencia
-(define dfa-paiz
+(define dfa-pote
 (list 
 (list 
 (list -1 -1 -1 -1 -1 1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1)
@@ -79,12 +79,23 @@
 )
 )
 
-;;Tabla de estados - parentesis
+;;Tabla de estados - parentesis derech0
 (define dfa-pade
 (list 
 (list 
-(list -1 -1 -1 -1 -1 -1 1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1)
 (list -1 -1 -1 -1 -1 -1 -1 1 -1 -1 -1 -1 -1 -1 -1 -1 -1)
+(list -1 -1 -1 -1 -1 -1 -1 1 -1 -1 -1 -1 -1 -1 -1 -1 -1)
+)
+(list 1)
+)
+)
+
+;;Tabla de estados - parentesis izquierdo
+(define dfa-paiz
+(list 
+(list 
+(list -1 -1 -1 -1 -1 -1 1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1)
+(list -1 -1 -1 -1 -1 -1 1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1)
 )
 (list 1)
 )
@@ -112,6 +123,27 @@
 )
 )
 
+;;Tabla de estados - comentarios
+(define dfa-come
+(list 
+(list 
+(list -1 -1 -1 1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1)
+(list 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 -1)
+)
+(list 1)
+)
+)
+
+;;Tabla de estados - Separaciones
+(define dfa-sepa
+(list 
+(list 
+(list -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 1 -1 -1 -1 -1 -1)
+(list -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 1 -1 -1 -1 -1 -1)
+)
+(list 1)
+)
+)
 (define (determina-grupo linea)
 (cond
   [(equal? (string-ref linea 0) #\*) 0]
