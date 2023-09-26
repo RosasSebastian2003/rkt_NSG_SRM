@@ -1,6 +1,6 @@
 #lang racket
 
-
+;;Tabla de estados - Multiplicación
 (define dfa-mult
 (list 
 (list 
@@ -12,7 +12,7 @@
 )
 
  
- 
+ ;;Tabla de estados - Identificador
 (define dfa-iden
 (list 
 (list
@@ -23,31 +23,94 @@
 )
 )
  
-
-(define dfa-iden
+;;Tabla de estados - Igualdad
+(define dfa-igualdad
 (list 
 (list
-(list -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 1 1 1 1 -1 -1)
+(list -1 1 -1 -1 -1 -1 -1 -1 -1 -1 -1 1 1 1 1 -1 -1)
 (list -1 -1 -1 -1 -1 -1 -1 -1 -1  1  1 1 1 1 1 -1 -1)
 )
 (list 1)
 )
 )
 
+;;Tabla de estados - Suma
+(define dfa-suma
+(list 
+(list 
+(list -1 -1 1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1)
+(list -1 -1 1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1)
+)
+(list 1)
+)
+)
+
+;;Tabla de estados - Resta
+(define dfa-rest
+(list 
+(list 
+(list -1 -1 -1 1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1)
+(list -1 -1 -1 1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1)
+)
+(list 1)
+)
+)
+
+;;Tabla de estados - Division
+(define dfa-div
+(list 
+(list 
+(list -1 -1 -1 -1 1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1)
+(list -1 -1 -1 -1 1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1)
+)
+(list 1)
+)
+)
 
 
+;;Tabla de estados - Potencia
+(define dfa-paiz
+(list 
+(list 
+(list -1 -1 -1 -1 -1 1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1)
+(list -1 -1 -1 -1 -1 1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1)
+)
+(list 1)
+)
+)
 
+;;Tabla de estados - parentesis
+(define dfa-pade
+(list 
+(list 
+(list -1 -1 -1 -1 -1 -1 1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1)
+(list -1 -1 -1 -1 -1 -1 -1 1 -1 -1 -1 -1 -1 -1 -1 -1 -1)
+)
+(list 1)
+)
+)
 
+;;Tabla de estados - reales
+(define dfa-real
+(list 
+(list 
+(list -1 -1 -1 1 -1 -1 -1 -1 -1 1 -1 -1 -1 -1 -1 -1 -1)
+(list -1 -1 -1 -1 -1 1 -1 -1 -1 -1 -1 -1 -1 1 -1 1 -1)
+)
+(list 1)
+)
+)
 
-
-
-
-
-
-
-
-
-
+;;Tabla de estados - enteros
+(define dfa-ente
+(list 
+(list 
+(list -1 -1 -1 -1 -1 -1 -1 -1 -1 1 -1 -1 -1 -1 -1 -1 -1)
+(list -1 -1 -1 -1 -1 -1 -1 -1 -1 1 -1 -1 -1 -1 -1 -1 -1)
+)
+(list 1)
+)
+)
 
 (define (determina-grupo linea)
 (cond
