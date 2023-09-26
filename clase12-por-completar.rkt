@@ -287,3 +287,14 @@
 " "
 )
   )
+
+;; Test case 1: Testing with a line containing a valid identifier
+(tokens-en-linea-v2 "variable1") 
+              (begin
+                (displayln "iden")
+                (displayln "sepa")
+                (displayln "iden")
+                (displayln "pade")
+                " "
+              )
+
