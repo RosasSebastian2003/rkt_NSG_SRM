@@ -12,7 +12,7 @@
 )
 
  
- ;;Tabla de estados - Identificador
+ ;;Tabla de estados - Identificador hola
 (define dfa-iden
 (list 
 (list
