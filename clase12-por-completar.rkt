@@ -27,7 +27,7 @@
 (define dfa-asig
 (list 
 (list
-(list -1 -1 1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1) ;Estado 0
+(list -1 1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1) ;Estado 0
 (list -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1) ;Estado 1
 )
 (list 1)
@@ -101,32 +101,30 @@
 )
 )
 
-;;Tabla de estados - reales
+;;Tabla de estados - reales **Cambiar tabla en el doc
 (define dfa-real
-(list 
-(list 
-(list -1 -1 -1 1 -1 -1 -1 -1 2 -1 -1 -1 -1 -1 -1 3 -1) ;Estado 0
-(list -1 -1 -1 -1 -1 -1 -1 -1 2 -1 -1 -1 -1 -1 -1 3 -1) ;Estado 1 
-(list -1 -1 -1 -1 -1 -1 -1 -1 2 -1 -1 -1 -1 -1 -1 3 -1) ;Estado 2
-(list -1 -1 -1 -1 -1 -1 -1 -1 4 -1 -1 -1 -1 -1 -1 -1 -1) ;Estado 3
-(list -1 -1 -1 -1 -1 -1 -1 -1 4 -1 -1 -1 -1 5 -1 -1 -1) ;Estado 4
-(list -1 -1 6 6 -1 -1 -1 -1 7 -1 -1 -1 -1 -1 -1 -1 -1) ;Estado 5
-(list -1 -1 -1 -1 -1 -1 -1 -1 7 -1 -1 -1 -1 -1 -1 -1 -1) ;Estado 6
-(list -1 -1 -1 -1 -1 -1 -1 -1 7 -1 -1 -1 -1 -1 -1 -1 -1) ;Estado 7
+(list
+(list
+(list -1 -1 -1 1 -1 -1 -1 -1 2 -1 -1 -1 -1 -1 -1 3 -1) ; Estado 0
+(list -1 -1 -1 -1 -1 -1 -1 -1 1 -1 -1 -1 -1 -1 -1 2 -1) ; Estado 1
+(list -1 -1 -1 -1 -1 -1 -1 -1 1 -1 -1 -1 -1 -1 -1 2 -1) ; Estado 2
+(list -1 -1 -1 -1 -1 -1 -1 -1 4 -1 -1 -1 -1 -1 -1 -1 -1) ; Estado 3
+(list -1 -1 -1 -1 -1 -1 -1 -1 4 -1 -1 -1 -1 5 -1 -1 -1) ; Estado 4
+(list -1 -1 6 6 -1 -1 -1 -1 7 -1 -1 -1 -1 -1 -1 -1 -1) ; Estado 5
+(list -1 -1 -1 -1 -1 -1 -1 -1 7 -1 -1 -1 -1 -1 -1 -1 -1) ; Estado 6
+(list -1 -1 -1 -1 -1 -1 -1 -1 7 -1 -1 -1 -1 -1 -1 -1 -1) ; Estado 7
 )
 (list 1)
+)   
 )
-)
-
 ;;Tabla de estados - enteros
 (define dfa-ente
 (list 
 (list 
-(list -1 -1 -1 1 -1 -1 -1 -1 2 -1 -1 -1 -1 -1 -1 -1 -1) ;Estado 0
-(list -1 -1 -1 -1 -1 -1 -1 -1 2 -1 -1 -1 -1 -1 -1 -1 -1) ;Estado 1 a -
-(list -1 -1 -1 -1 -1 -1 -1 -1 2 -1 -1 -1 -1 -1 -1 -1 -1) ;Estado 2 a digito
+(list -1 -1 -1 1 -1 -1 -1 -1 1 -1 -1 -1 -1 -1 -1 -1 -1) ; Estado 0
+(list -1 -1 -1 -1 -1 -1 -1 -1 1 -1 -1 -1 -1 -1 -1 -1 -1) ; Estado 1 (Estado de bucle) 
 )
-(list 1)
+(list 1) ;Estados iniciales 0 y 1
 )
 )
 
@@ -134,9 +132,8 @@
 (define dfa-come
 (list 
 (list 
-(list -1 -1 -1 -1 1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1) ;Estado 0
-(list -1 -1 -1 -1 2 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1) ;Estado 1
-(list 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2) ;Estado 2
+(list -1 -1 -1 -1 1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1) ; Estado 0: Inicio de comentario
+(list 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1) ; Estado 1: Contenido del comentario (cualquier carácter es válido)
 )
 (list 1)
 )
@@ -156,36 +153,25 @@
 
 (define (determina-grupo linea)
 (cond
-  [(equal? (string-ref linea 0) #\*) 0]
-  [(equal? (string-ref linea 0) #\=) 1]
-  [(equal? (string-ref linea 0) #\+) 2]
-  [(equal? (string-ref linea 0) #\-) 3]
-  [(equal? (string-ref linea 0) #\/) 4]
-  [(equal? (string-ref linea 0) #\^) 5]
-  [(equal? (string-ref linea 0) #\() 6]
-  [(equal? (string-ref linea 0) #\)) 7]
-  [(equal? (string-ref linea 0) #\ ) 8]
-  [(and (>= (char->integer (string-ref linea 0)) 48) (<= (char->integer (string-ref linea 0)) 57)) 9]
-  [(equal? (string-ref linea 0) #\_) 10]
+  [(equal? (string-ref linea 0) #\*) 0] 
+  [(equal? (string-ref linea 0) #\=) 1] 
+  [(equal? (string-ref linea 0) #\+) 2] 
+  [(equal? (string-ref linea 0) #\-) 3] 
+  [(equal? (string-ref linea 0) #\/) 4] 
+  [(equal? (string-ref linea 0) #\^) 5] 
+  [(equal? (string-ref linea 0) #\() 6] 
+  [(equal? (string-ref linea 0) #\)) 7] 
+  [(and (>= (char->integer (string-ref linea 0)) 48) (<= (char->integer (string-ref linea 0)) 57)) 8] 
+  [(equal? (string-ref linea 0) #\_) 9]
+  [(equal? (string-ref linea 0) #\ ) 10]
   [(and (>= (char->integer (string-ref linea 0)) 65) (<= (char->integer (string-ref linea 0)) 90)) 11]
-  [(and (>= (char->integer (string-ref linea 0)) 97) (<= (char->integer (string-ref linea 0)) 100)) 12]
+  [(and (>= (char->integer (string-ref linea 0)) 97) (<= (char->integer (string-ref linea 0)) 122)) 12]
   [(equal? (string-ref linea 0) #\e) 13]
   [(and (>= (char->integer (string-ref linea 0)) 102) (<= (char->integer (string-ref linea 0)) 122)) 14]
   [(equal? (string-ref linea 0) #\.) 15]
   [else 16]
   )
 )
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -215,96 +201,93 @@
 
 
 
-
-
-
-
-
-
-
-
 (define (tokens-en-linea-v2 linea)
  (if (not (string=? linea "")) 
 (cond
   [(recorre-dfa dfa-iden linea) (begin
-                                                           (displayln (recorre-dfa dfa-iden linea))
-                                                           (tokens-en-linea-v2 (substring linea (string-length (recorre-dfa dfa-iden linea))))
+                                    (display "Variable: ")
+                                    (displayln (recorre-dfa dfa-iden linea))
+                                    (tokens-en-linea-v2 (substring linea (string-length (recorre-dfa dfa-iden linea))))
                                                            )
                                                            ]
   [(recorre-dfa dfa-real linea) (begin
-                                                                    (displayln (recorre-dfa dfa-real linea))
-                                                                    (tokens-en-linea-v2 (substring linea (string-length (recorre-dfa dfa-real linea))))
+                                    (display "Real: ")
+                                    (displayln (recorre-dfa dfa-real linea))
+                                    (tokens-en-linea-v2 (substring linea (string-length (recorre-dfa dfa-real linea))))
                                                                     )
                                                                     ]
   [(recorre-dfa dfa-ente linea) (begin
-                                          (displayln (recorre-dfa dfa-ente linea))
-                                          (tokens-en-linea-v2 (substring linea (string-length (recorre-dfa dfa-ente linea))))
+                                   (display "Entero: ")
+                                   (displayln (recorre-dfa dfa-ente linea))
+                                   (tokens-en-linea-v2 (substring linea (string-length (recorre-dfa dfa-ente linea))))
                                                                     )
                                           ]
   [(recorre-dfa dfa-come linea) (begin
+                                  (display "Comentario: ")
                                   (displayln (recorre-dfa dfa-come linea))
                                   (tokens-en-linea-v2 (substring linea (string-length (recorre-dfa dfa-come linea))))
                                                                     )
                                   ]
   [(recorre-dfa dfa-mult linea) (begin
+                                 (display "Multiplicación: ")
                                  (displayln (recorre-dfa dfa-mult linea))
-                          (tokens-en-linea-v2 (substring linea (string-length (recorre-dfa dfa-mult linea))))
+                                 (tokens-en-linea-v2 (substring linea (string-length (recorre-dfa dfa-mult linea))))
                                                                     )
                                  ]
   [(recorre-dfa dfa-asig linea) (begin
-                               (displayln (recorre-dfa dfa-asig linea))
-                                                                    (tokens-en-linea-v2 (substring linea (string-length (recorre-dfa dfa-asig linea))))
+                                 (display "Asignación: ")
+                                 (displayln (recorre-dfa dfa-asig linea))
+                                 (tokens-en-linea-v2 (substring linea (string-length (recorre-dfa dfa-asig linea))))
                                                                     )
                                ]
   [(recorre-dfa dfa-suma linea) (begin
+                                 (display "Suma: ")
                                  (displayln (recorre-dfa dfa-suma linea))
-                                                                    (tokens-en-linea-v2 (substring linea (string-length (recorre-dfa dfa-suma linea))))
+                                 (tokens-en-linea-v2 (substring linea (string-length (recorre-dfa dfa-suma linea))))
                                                                     )
                                  ]
   [(recorre-dfa dfa-rest linea) (begin
-                               (displayln (recorre-dfa dfa-rest linea))
-                                                                    (tokens-en-linea-v2 (substring linea (string-length (recorre-dfa dfa-rest linea))))
+                                 (display "Resta: ")
+                                 (displayln (recorre-dfa dfa-rest linea))
+                                 (tokens-en-linea-v2 (substring linea (string-length (recorre-dfa dfa-rest linea))))
                                                                     )
-                               ]
+                                 ]
 
   [(recorre-dfa dfa-divi linea) (begin
-                               (displayln (recorre-dfa dfa-divi linea))
-                                                                    (tokens-en-linea-v2 (substring linea (string-length (recorre-dfa dfa-divi linea))))
+                                 (display "Division: ")
+                                 (displayln (recorre-dfa dfa-divi linea))
+                                 (tokens-en-linea-v2 (substring linea (string-length (recorre-dfa dfa-divi linea))))
                                                                     )
                                ]
   [(recorre-dfa dfa-paiz linea) (begin
+                                 (display "Parentesis izquierdo: ")
                                  (displayln (recorre-dfa dfa-paiz linea))
-                                                                    (tokens-en-linea-v2 (substring linea (string-length (recorre-dfa dfa-paiz linea))))
+                                 (tokens-en-linea-v2 (substring linea (string-length (recorre-dfa dfa-paiz linea))))
                                                                     )
                                  ]
   [(recorre-dfa dfa-pade linea) (begin
+                                 (display "Parentesis derecho: ")
                                  (displayln (recorre-dfa dfa-pade linea))
-                                                                    (tokens-en-linea-v2 (substring linea (string-length (recorre-dfa dfa-pade linea))))
+                                 (tokens-en-linea-v2 (substring linea (string-length (recorre-dfa dfa-pade linea))))
                                                                     )
                                  ]
   [(recorre-dfa dfa-pote linea) (begin
+                                 (display "Potencia: ")
                                  (displayln (recorre-dfa dfa-pote linea))
-                                                                    (tokens-en-linea-v2 (substring linea (string-length (recorre-dfa dfa-pote linea))))
+                                 (tokens-en-linea-v2 (substring linea (string-length (recorre-dfa dfa-pote linea))))
                                                                     )
                                  ]
   [(recorre-dfa dfa-sepa linea) (begin
+                                (display "Separación: ")
                                 (displayln (recorre-dfa dfa-sepa linea))
-                                                                    (tokens-en-linea-v2 (substring linea (string-length (recorre-dfa dfa-sepa linea))))
+                                (tokens-en-linea-v2 (substring linea (string-length (recorre-dfa dfa-sepa linea))))
                                                                     )
                                 ]
   [else (displayln "Error, carácter no reconocido" )]
   )
 " "
 )
-  )
+)
 
-;; Test case 1: Testing with a line containing a valid identifier
-(tokens-en-linea-v2 "variable1") 
-              (begin
-                (displayln "iden")
-                (displayln "sepa")
-                (displayln "iden")
-                (displayln "pade")
-                " "
-              )
-
+(displayln "Testing token recognition:")
+(tokens-en-linea-v2 "x = 42 * 3.14 //This is a comment")
