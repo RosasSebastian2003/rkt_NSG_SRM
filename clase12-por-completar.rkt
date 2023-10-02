@@ -102,33 +102,61 @@
 )
 
 ;;Tabla de estados - reales **Cambiar tabla en el doc
+;;; (define dfa-real
+;;; (list
+;;; (list
+;;; (list -1 -1 -1 1 -1 -1 -1 -1 2 -1 -1 -1 -1 -1 -1 3 -1) ; Estado 0
+;;; (list -1 -1 -1 -1 -1 -1 -1 -1 1 -1 -1 -1 -1 -1 -1 2 -1) ; Estado 1
+;;; (list -1 -1 -1 -1 -1 -1 -1 -1 1 -1 -1 -1 -1 -1 -1 2 -1) ; Estado 2
+;;; (list -1 -1 -1 -1 -1 -1 -1 -1 4 -1 -1 -1 -1 -1 -1 -1 -1) ; Estado 3
+;;; (list -1 -1 -1 -1 -1 -1 -1 -1 4 -1 -1 -1 -1 5 -1 -1 -1) ; Estado 4
+;;; (list -1 -1 6 6 -1 -1 -1 -1 7 -1 -1 -1 -1 -1 -1 -1 -1) ; Estado 5
+;;; (list -1 -1 -1 -1 -1 -1 -1 -1 7 -1 -1 -1 -1 -1 -1 -1 -1) ; Estado 6
+;;; (list -1 -1 -1 -1 -1 -1 -1 -1 7 -1 -1 -1 -1 -1 -1 -1 -1) ; Estado 7
+;;; )
+;;; (list 1)
+;;; )   
+;;; )
+
 (define dfa-real
 (list
 (list
 (list -1 -1 -1 1 -1 -1 -1 -1 2 -1 -1 -1 -1 -1 -1 3 -1) ; Estado 0
-(list -1 -1 -1 -1 -1 -1 -1 -1 1 -1 -1 -1 -1 -1 -1 2 -1) ; Estado 1
-(list -1 -1 -1 -1 -1 -1 -1 -1 1 -1 -1 -1 -1 -1 -1 2 -1) ; Estado 2
+(list -1 -1 -1 -1 -1 -1 -1 -1 2 -1 -1 -1 -1 -1 -1 3 -1) ; Estado 1
+(list -1 -1 -1 -1 -1 -1 -1 -1 2 -1 -1 -1 -1 -1 -1 3 -1) ; Estado 2
 (list -1 -1 -1 -1 -1 -1 -1 -1 4 -1 -1 -1 -1 -1 -1 -1 -1) ; Estado 3
 (list -1 -1 -1 -1 -1 -1 -1 -1 4 -1 -1 -1 -1 5 -1 -1 -1) ; Estado 4
 (list -1 -1 6 6 -1 -1 -1 -1 7 -1 -1 -1 -1 -1 -1 -1 -1) ; Estado 5
 (list -1 -1 -1 -1 -1 -1 -1 -1 7 -1 -1 -1 -1 -1 -1 -1 -1) ; Estado 6
 (list -1 -1 -1 -1 -1 -1 -1 -1 7 -1 -1 -1 -1 -1 -1 -1 -1) ; Estado 7
 )
-(list 1)
+(list 0)
 )   
 )
+
 ;;Tabla de estados - enteros
+;;; (define dfa-ente
+;;; (list 
+;;; (list 
+;;; (list -1 -1 -1 1 -1 -1 -1 -1 1 -1 -1 -1 -1 -1 -1 -1 -1) ; Estado 0
+;;; (list -1 -1 -1 -1 -1 -1 -1 -1 1 -1 -1 -1 -1 -1 -1 -1 -1) ; Estado 1 (Estado de bucle) 
+;;; )
+;;; (list 0) ;Estados iniciales 0 y 1
+;;; )
+;;; )
+
 (define dfa-ente
 (list 
 (list 
-(list -1 -1 -1 1 -1 -1 -1 -1 1 -1 -1 -1 -1 -1 -1 -1 -1) ; Estado 0
-(list -1 -1 -1 -1 -1 -1 -1 -1 1 -1 -1 -1 -1 -1 -1 -1 -1) ; Estado 1 (Estado de bucle) 
+(list -1 -1 -1 1 -1 -1 -1 -1 2 -1 -1 -1 -1 -1 -1 -1 -1) ; Estado 0
+(list -1 -1 -1 -1 -1 -1 -1 -1 2 -1 -1 -1 -1 -1 -1 -1 -1) ; Estado 1 (Estado de bucle) 
+(list -1 -1 -1 -1 -1 -1 -1 -1 2 -1 -1 -1 -1 -1 -1 -1 -1) 
 )
-(list 1) ;Estados iniciales 0 y 1
+(list 0 1) ;Estados iniciales 0 y 1
 )
 )
 
-;;Tabla de estados - comentarios
+;;Tabla de estados - comentarios **EL estado 1 en el doc no permite que se reconozca el resto de la linea
 (define dfa-come
 (list 
 (list 
@@ -165,7 +193,7 @@
   [(equal? (string-ref linea 0) #\_) 9]
   [(equal? (string-ref linea 0) #\ ) 10]
   [(and (>= (char->integer (string-ref linea 0)) 65) (<= (char->integer (string-ref linea 0)) 90)) 11]
-  [(and (>= (char->integer (string-ref linea 0)) 97) (<= (char->integer (string-ref linea 0)) 122)) 12]
+  [(and (>= (char->integer (string-ref linea 0)) 97) (<= (char->integer (string-ref linea 0)) 100)) 12]
   [(equal? (string-ref linea 0) #\e) 13]
   [(and (>= (char->integer (string-ref linea 0)) 102) (<= (char->integer (string-ref linea 0)) 122)) 14]
   [(equal? (string-ref linea 0) #\.) 15]
