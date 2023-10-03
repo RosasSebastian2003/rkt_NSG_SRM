@@ -306,5 +306,19 @@
 )
 )
 
-(displayln "Testing token recognition:")
-(tokens-en-linea-v2 "x = 42 / 3.14 //This is a comment")
+;;;Lectura de un archivo de texto
+(define (read-file filename)
+  (let ((port (open-input-file filename)))
+    (let loop ((line (read-line port)))
+      (cond
+        [(eof-object? line) (close-input-port port)]
+        [else (begin
+                (tokens-en-linea-v2 line)
+                (loop (read-line port))
+                )]
+        )
+      )
+    )
+  )
+
+  (read-file "test.txt")
