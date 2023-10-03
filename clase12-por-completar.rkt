@@ -308,10 +308,10 @@
 
 ;;;Lectura de un archivo de texto
 (define (read-file filename)
-  (let ((port (open-input-file filename)))
-    (let loop ((line (read-line port)))
+  (let ((port (open-input-file filename))) ;Creamos un objeto port que representa el archivo
+    (let loop ((line (read-line port))) ;Leemos el archivo linea por linea
       (cond
-        [(eof-object? line) (close-input-port port)]
+        [(eof-object? line) (close-input-port port)] ;Si llegamos al final del archivo, lo cerramos
         [else (begin
                 (display "Linea: ")
                 (displayln line )
