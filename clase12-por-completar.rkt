@@ -313,7 +313,11 @@
       (cond
         [(eof-object? line) (close-input-port port)]
         [else (begin
+                (display "Linea: ")
+                (displayln line )
+                (displayln "Tokens: \n")
                 (tokens-en-linea-v2 line)
+                (displayln "------------------------------------------ \n")
                 (loop (read-line port))
                 )]
         )
