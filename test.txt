@@ -4,4 +4,5 @@ d=a^b // Esto es un comentario
 result=a*(b+2)/(4.8e3-9)
 x=b^2 + 2*a/b
 y=(a+b)*(a-b)
+b = 10.
 z=:[ab]

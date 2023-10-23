@@ -131,7 +131,7 @@
 (list -1 -1 -1 -1 -1 -1 -1 -1 7 -1 -1 -1 -1 -1 -1 -1 -1) ; Estado 6
 (list -1 -1 -1 -1 -1 -1 -1 -1 7 -1 -1 -1 -1 -1 -1 -1 -1) ; Estado 7
 )
-(list 4 7) ;Estados finales 4 y 7
+(list 3 4 7) ;Estados finales 3, 4 y 7
 )   
 )
 
@@ -139,11 +139,11 @@
 (define dfa-ente
 (list 
 (list 
-(list -1 -1 -1 1 -1 -1 -1 -1 2 -1 -1 -1 -1 -1 -1 -1 -1) ; Estado 0
-(list -1 -1 -1 -1 -1 -1 -1 -1 2 -1 -1 -1 -1 -1 -1 -1 -1) ; Estado 1 (Estado de bucle) 
+(list -1 -1 -1 1 -1 -1 -1 -1 2 -1 -1 -1 -1 -1 -1 -1 -1) 
+(list -1 -1 -1 -1 -1 -1 -1 -1 2 -1 -1 -1 -1 -1 -1 -1 -1) 
 (list -1 -1 -1 -1 -1 -1 -1 -1 2 -1 -1 -1 -1 -1 -1 -1 -1) 
 )
-(list 2) ;Estado final 2
+(list 2) 
 )
 )
 
