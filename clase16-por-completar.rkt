@@ -1,40 +1,76 @@
 #lang racket
-(require racket/format)
 
-      
-(define (analize_regexp file)
-  (with-input-from-file file
-    (lambda ()
-      (let loop ((lines (port->lines (current-input-port))) (result '()))
-        (cond
-          ((null? lines) (reverse result))
-          (else
-            (let* ((line (car lines))
-                   (pair (string-split line ","))
-                   (color (format "#~x" (random (expt 16 6)))))
-              (loop (cdr lines) (cons (cons (car pair) color) result)))))))))
+(define (tokens-en-linea linea)
+ (if (not (string=? linea "")) 
+(cond
+  [(regexp-match "^[A-Za-z](?>[A-Za-z]|[0-9]|_)*" linea) (begin
+                                                           (displayln (car (regexp-match "^[A-Za-z](?>[A-Za-z]|[0-9]|_)*" linea)))
+                                                           (tokens-en-linea (substring linea (string-length (car (regexp-match "^[A-Za-z](?>[A-Za-z]|[0-9]|_)*" linea)))))
+                                                           )
+                                                           ]
+  [(regexp-match "^-?(?>[0-9]*\\.[0-9]+)(?>e[+-]?[0-9]+)?" linea) (begin
+                                                                    (displayln (car (regexp-match "^-?(?>[0-9]*\\.[0-9]+)(?>e[+-]?[0-9]+)?" linea)))
+                                                                    (tokens-en-linea (substring linea (string-length (car (regexp-match "^-?(?>[0-9]*\\.[0-9]+)(?>e[+-]?[0-9]+)?" linea)))))
+                                                                    )
+                                                                    ]
+  [(regexp-match "^[0-9]+[0-9]*" linea) (begin
+                                          (displayln (car (regexp-match  "^[0-9]+[0-9]*" linea)))
+                                          (tokens-en-linea (substring linea (string-length (car (regexp-match "^[0-9]+[0-9]*" linea)))))
+                                                                    )
+                                          ]
+  [(regexp-match "^//.*" linea) (begin
+                                  (displayln (car (regexp-match "^//.*" linea)))
+                                  (tokens-en-linea (substring linea (string-length (car (regexp-match "^//.*" linea)))))
+                                                                    )
+                                  ]
+  [(regexp-match "^\\*" linea) (begin
+                                 (displayln (car (regexp-match "^\\*" linea)))
+                          (tokens-en-linea (substring linea (string-length (car (regexp-match "^\\*" linea)))))
+                                                                    )
+                                 ]
+  [(regexp-match "^=" linea) (begin
+                               (displayln (car (regexp-match "^=" linea)))
+                                                                    (tokens-en-linea (substring linea (string-length (car (regexp-match "^=" linea)))))
+                                                                    )
+                               ]
+  [(regexp-match "^\\+" linea) (begin
+                                 (displayln (car (regexp-match  "^\\+" linea)))
+                                                                    (tokens-en-linea (substring linea (string-length (car (regexp-match "^\\+" linea)))))
+                                                                    )
+                                 ]
+  [(regexp-match "^-" linea) (begin
+                               (displayln (car (regexp-match "^-" linea)))
+                                                                    (tokens-en-linea (substring linea (string-length (car (regexp-match "^-" linea)))))
+                                                                    )
+                               ]
 
-
-(define (regexp_matcher exp-list linea)
-  (if (not (string=? linea ""))
-      (let loop ((list exp-list) (linea linea))
-        (define regex (car (car list)))
-        (define color (cdr (car list)))
-        ;;; (displayln linea)
-        ;;; (displayln regex)
-        (cond
-          [(null? list) (displayln "Error: no regular expressions found")]
-          [(regexp-match regex linea)
-            (begin
-              (displayln (format "<span style=\"color: ~a;\">~a</span>" color (car (regexp-match regex linea))))
-              (regexp_matcher exp-list (substring linea (string-length (car (regexp-match regex linea))))))
-          ]
-          [(null? (cdr list)) (displayln ( format "<span style=\"color: #FF0000;\">:ERROR, no se reconoce la expresion ~a</span>" linea))]
-          [else (loop (cdr list) linea)]
-        )
-      )
-    (displayln "")
+  [(regexp-match "^/" linea) (begin
+                               (displayln (car (regexp-match "^/" linea)))
+                                                                    (tokens-en-linea (substring linea (string-length (car (regexp-match "^/" linea)))))
+                                                                    )
+                               ]
+  [(regexp-match "^\\(" linea) (begin
+                                 (displayln (car (regexp-match "^\\(" linea)))
+                                                                    (tokens-en-linea (substring linea (string-length (car (regexp-match "^\\(" linea)))))
+                                                                    )
+                                 ]
+  [(regexp-match "^\\)" linea) (begin
+                                 (displayln (car (regexp-match  "^\\)" linea)))
+                                                                    (tokens-en-linea (substring linea (string-length (car (regexp-match "^\\)" linea)))))
+                                                                    )
+                                 ]
+  [(regexp-match "^\\^" linea) (begin
+                                 (displayln (car (regexp-match  "^\\^" linea)))
+                                                                    (tokens-en-linea (substring linea (string-length (car (regexp-match "^\\^" linea)))))
+                                                                    )
+                                 ]
+  [(regexp-match "^ +" linea) (begin
+                                (displayln (car (regexp-match "^ +" linea)))
+                                                                    (tokens-en-linea (substring linea (string-length (car (regexp-match "^ +" linea)))))
+                                                                    )
+                                ]
+  [else (displayln "Error, carácter no reconocido" )]
   )
+" "
 )
-
-
+  )
