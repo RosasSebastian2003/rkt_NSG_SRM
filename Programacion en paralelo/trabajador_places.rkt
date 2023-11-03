@@ -1,0 +1,36 @@
+#lang racket 
+
+(require "trabajador.rkt")
+
+(define numtra 8)
+(define p1 (dynamic-place "trabajador.rkt" 'principal))
+(define p2 (dynamic-place "trabajador.rkt" 'principal))
+(define p3 (dynamic-place "trabajador.rkt" 'principal))
+(define p4 (dynamic-place "trabajador.rkt" 'principal))
+(define p5 (dynamic-place "trabajador.rkt" 'principal))
+(define p6 (dynamic-place "trabajador.rkt" 'principal))
+(define p7 (dynamic-place "trabajador.rkt" 'principal))
+(define p8 (dynamic-place "trabajador.rkt" 'principal))
+(define tiempo-inicial (current-seconds))
+(place-channel-put p1 (/ 999999996 numtra))
+(place-channel-put p2 (/ 999999996 numtra))
+(place-channel-put p3 (/ 999999996 numtra))
+(place-channel-put p4 (/ 999999996 numtra))
+(place-channel-put p5 (/ 999999996 numtra))
+(place-channel-put p6 (/ 999999996 numtra))
+(place-channel-put p7 (/ 999999996 numtra))
+(place-channel-put p8 (/ 999999996 numtra))
+
+(+
+ (place-channel-get p1)
+ (place-channel-get p2)
+ (place-channel-get p3)
+ (place-channel-get p4)
+ (place-channel-get p5)
+ (place-channel-get p6)
+ (place-channel-get p7)
+ (place-channel-get p8)
+)
+
+(define tiempo-final (current-seconds))
+(- tiempo-final tiempo-inicial)
