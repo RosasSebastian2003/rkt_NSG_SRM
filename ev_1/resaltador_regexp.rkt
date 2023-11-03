@@ -1,6 +1,7 @@
 #lang racket
 (require racket/format)
 
+
 (define (write-html output-file output-str)
   (with-output-to-file output-file
     #:mode 'text 
