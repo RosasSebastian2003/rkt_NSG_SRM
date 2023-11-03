@@ -17,7 +17,8 @@
           (else
             (let* ((line (car lines))
                    (pair (string-split line ","))
-                   ;; Generate a random hue value between 270 and 480, excluding red, pink, and orange hues
+                   
+                   
                    (hue (random 270 480))
                    ;; Convert the hue value to RGB components
                    (red (round (* 255 (if (< hue 360) 1 (- (* hue 360/60) 1)))))
@@ -35,7 +36,7 @@
         (define color (cdr (car list)))
         
         (cond
-          [(null? list) (displayln "Error: Lista vacia, no se detectaron expresiones regulares")]
+          [(null? list) (displayln "")]
           [(regexp-match regex linea)
             (begin
               (write-html htmlFile (format "<span style=\"color: ~a;\">~a</span>" color (car (regexp-match regex linea))))
@@ -76,7 +77,7 @@
   (if (file-exists? output-file)
       (write-html-body)
       (begin
-        (write-html output-file "<html><body></body></html>")
+        (write-html output-file "")
         (write-html-body)
       )
   )
