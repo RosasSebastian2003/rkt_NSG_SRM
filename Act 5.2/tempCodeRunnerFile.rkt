@@ -1,1 +1,1 @@
-sum-worker
+(sum-multiples-sequential 1e9)
