@@ -1,1 +1,0 @@
-(sum-multiples-sequential 1e9)
